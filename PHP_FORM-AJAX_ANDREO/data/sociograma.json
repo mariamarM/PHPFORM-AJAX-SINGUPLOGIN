@@ -1,0 +1,188 @@
+[
+    {
+        "fecha": "2025-10-18 14:30:32"
+    },
+    {
+        "nombre": "Maria",
+        "positivo": "Andrea",
+        "negativo": "Raul",
+        "horario": "",
+        "rol": "lider",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "motivo": "",
+        "color": "",
+        "fecha": "2025-10-18 15:03:45",
+        "password": "",
+        "foto": "",
+        "satisfaccion": ""
+    },
+    {
+        "nombre": "Maria",
+        "positivo": "Andrea",
+        "negativo": "Raul",
+        "horario": "",
+        "rol": "lider",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "motivo": "",
+        "color": "",
+        "fecha": "2025-10-18 15:04:03",
+        "password": "",
+        "foto": "",
+        "satisfaccion": ""
+    },
+    {
+        "nombre": "Maria",
+        "positivo": "Andrea",
+        "negativo": "Raul",
+        "horario": "",
+        "rol": "creativo",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "motivo": "",
+        "color": "",
+        "fecha": "2025-10-18 15:08:47",
+        "password": "",
+        "foto": "",
+        "satisfaccion": ""
+    },
+    {
+        "nombre": "Maria",
+        "positivo": "Andrea",
+        "negativo": "Raul",
+        "rol": "lider",
+        "habilidades": [
+            "resolucion"
+        ],
+        "color": "#000000",
+        "fecha": "2025-10-18 15:23:01",
+        "password": "holaquetal",
+        "satisfaccion": "6"
+    },
+    {
+        "nombre": "Carlos",
+        "positivo": "Maria",
+        "negativo": "Nico",
+        "rol": "ejecutor",
+        "habilidades": [
+            "creatividad"
+        ],
+        "color": "#3c8217",
+        "fecha": "2025-10-18 15:47:40",
+        "password": "holaquetal",
+        "satisfaccion": "9"
+    },
+    {
+        "nombre": "Blanca",
+        "positivo": "Negra",
+        "negativo": "Gris",
+        "rol": "lider",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "color": "#daa616",
+        "fecha": "2025-10-18 15:52:23",
+        "password": "1234",
+        "satisfaccion": "1"
+    },
+    {
+        "nombre": "Blanca",
+        "positivo": "Maria",
+        "negativo": "Raul",
+        "rol": "lider",
+        "habilidades": [
+            "resolucion"
+        ],
+        "color": "#570a0a",
+        "fecha": "2025-10-18 15:53:36",
+        "password": "123",
+        "satisfaccion": "2"
+    },
+    {
+        "nombre": "Carlos",
+        "positivo": "Negra",
+        "negativo": "Nico",
+        "rol": "lider",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "color": "#990000",
+        "fecha": "2025-10-18 15:56:45",
+        "password": "123",
+        "satisfaccion": "3"
+    },
+    {
+        "nombre": "Maria",
+        "positivo": "Andrea",
+        "negativo": "Gris",
+        "rol": "creativo",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "color": "#000000",
+        "fecha": "2025-10-18 15:57:36",
+        "password": "123",
+        "satisfaccion": "6"
+    },
+    {
+        "nombre": "Carlos",
+        "positivo": "ssdfsd",
+        "negativo": "Raul",
+        "rol": "organizador",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "color": "#000000",
+        "fecha": "2025-10-18 15:58:22",
+        "password": "123",
+        "satisfaccion": "6"
+    },
+    {
+        "nombre": "Maria",
+        "positivo": "Negra",
+        "negativo": "Raul",
+        "rol": "creativo",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "color": "#000000",
+        "fecha": "2025-10-18 15:59:15",
+        "password": "123",
+        "satisfaccion": "6"
+    },
+    {
+        "nombre": "Carlos",
+        "positivo": "Andrea",
+        "negativo": "Raul",
+        "color": "#000000",
+        "fecha": "2025-10-18 16:00:17",
+        "password": "123",
+        "satisfaccion": "6"
+    },
+    {
+        "nombre": "Laura",
+        "positivo": "Andrea",
+        "negativo": "Marc",
+        "color": "#000000",
+        "fecha": "2025-10-18 16:00:53",
+        "password": "12",
+        "satisfaccion": "6"
+    },
+    {
+        "nombre": "Blanca",
+        "positivo": "ssdfsd",
+        "negativo": "Raul",
+        "rol": "ejecutor",
+        "habilidades": [
+            "comunicacion"
+        ],
+        "color": "#c92222",
+        "fecha": "2025-10-18 16:14:35",
+        "password": "123",
+        "satisfaccion": "2"
+    }
+]

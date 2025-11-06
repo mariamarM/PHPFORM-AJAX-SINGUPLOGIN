@@ -1,0 +1,94 @@
+[
+   {
+    "type":"text",
+    "name":"nombre",
+    "placeholder":"Escribe tu nombre",
+    "required":true
+   },
+   {
+    "type":"text",
+    "name":"positivo",
+    "placeholder":"Compañero preferido",
+    "required":true
+   },
+   {
+    "type":"text",
+    "name":"negativo",
+    "placeholder":"Compañero menos preferido",
+    "required":true
+   },
+   {
+    "type":"select",
+    "name":"horario",
+    "options":[
+      {"value":"manana","label":"Mañana"},
+      {"value":"tarde","label":"Tarde"},
+      {"value":"noche","label":"Noche"}
+    ],
+    "required":true
+   },
+   {
+    "type":"radio",
+    "name":"rol",
+    "options":[
+      {"value":"lider","label":"Líder"},
+      {"value":"creativo","label":"Creativo"},
+      {"value":"organizador","label":"Organizador"},
+      {"value":"ejecutor","label":"Ejecutor"}
+    ],
+    "required":true
+   },
+    {
+     "type":"checkbox",
+     "name":"habilidades",
+     "options":[
+        {"value":"comunicacion","label":"Comunicación"},
+        {"value":"resolucion","label":"Resolución de problemas"},
+        {"value":"creatividad","label":"Creatividad"},
+        {"value":"liderazgo","label":"Liderazgo"},
+        {"value":"organizacion","label":"Organización"}
+     ],
+        "required":true
+    },
+    {
+     "type":"textarea",
+     "name":"motivo",
+     "placeholder":"Explica tu elección",
+     "required":true
+    },
+    {
+        "type": "color",
+        "name":"color",
+        "label":"Elige tu color de escritorio para un futuro",
+        "required": false
+    },
+    {
+        "type": "date",
+        "name":"fecha",
+        "label":"Selecciona una fecha para una futura reunión",
+        "required": false
+    },
+    {
+        "type": "password",
+        "name":"password",
+        "placeholder":"Escribe tu contraseña",
+        "required": true
+    },
+    {
+       "type":"file",
+         "name":"foto",
+         "label":"Sube tu foto de DNI", 
+            "required": false
+    },
+    {
+        "type":"range",
+        "name":"satisfaccion",
+        "label":"Nivel de satisfacción segun el trabajo en grupo",
+        "required": false,
+        "min":1,
+        "max":10,
+        "step":1
+    }
+
+
+]
