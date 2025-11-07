@@ -1,1 +1,30 @@
-[]
+[
+    {
+        "nombre": "Maria",
+        "email": "mariaandoli@campus.monlau.com"
+    },
+    {
+        "nombre": "Laura",
+        "email": "andreo.olivella@gmail.com"
+    },
+    {
+        "nombre": "carla",
+        "email": "carla@campus.monlau.com"
+    },
+    {
+        "nombre": "carla",
+        "email": "hola@carla.com"
+    },
+    {
+        "nombre": "Maria",
+        "email": "hola@monlau.com"
+    },
+    {
+        "nombre": "Maria",
+        "email": "holamaria@monlau.com"
+    },
+    {
+        "nombre": "Mazria",
+        "email": "holasfds@monlau.com"
+    }
+]

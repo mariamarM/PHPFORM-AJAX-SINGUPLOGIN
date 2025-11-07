@@ -1,192 +1,188 @@
-// async function listarUsuarios() {
-//   const res = await fetch('api.php?action=list');
-//   const data = await res.json();
-// }
+document.addEventListener('DOMContentLoaded', () => {
 
-// async function crearUsuario(nombre, email, empresa) {
-//   const res = await fetch('api.php?action=create', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ nombre, email, empresa })
-//   });
-//   const data = await res.json();
-//   if (data.ok) listarUsuarios();
-// }
+  const URL_API_SERVIDOR = 'auth/api.php';
+  let listaUsuarios = [];
 
-// async function borrarUsuario(index) {
-//   const res = await fetch('api.php?action=delete', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ index })
-//   });
-//   const data = await res.json();
-//   if (data.ok) listarUsuarios();
-// }
-// mini crud ajax lado cliente sin librerias
-// archivo assets/js/main.js
+  const nodoCuerpoTablaUsuarios = document.getElementById('usersTable');
+  const formularioAltaUsuario = document.getElementById('userForm');
+  const nodoZonaMensajesEstado = document.getElementById('msg');
+  const modalEditar = document.getElementById('modalEditar');
+  const formEditarUsuario = document.getElementById('formEditarUsuario');
+  const editIndex = document.getElementById('editIndex');
+  const editNombre = document.getElementById('editNombre');
+  const editEmail = document.getElementById('editEmail');
 
-/** URL absoluta o relativa del endpoint PHP (API del servidor) */
-const URL_API_SERVIDOR = '/api.php';
-
-/** Elementos de la interfaz que necesitamos manipular */
-const nodoCuerpoTablaUsuarios = document.getElementById('tbody'); // <tbody> del listado
-const nodoFilaEstadoVacio = document.getElementById('fila-estado-vacio'); // <tr> fila de “no hay datos”
-const formularioAltaUsuario = document.getElementById('formCreate'); // <form> de alta
-const nodoZonaMensajesEstado = document.getElementById('msg'); // <div> mensajes
-const nodoBotonAgregarUsuario = document.getElementById('boton-agregar-usuario');
-const nodoIndicadorCargando = document.getElementById('indicador-cargando');
-
-// bloque gestion de mensajes de estado exito error
-function mostrarMensajeDeEstado(tipoEstado, textoMensaje) {
-  nodoZonaMensajesEstado.className = tipoEstado; // .ok | .error | ''
-  nodoZonaMensajesEstado.textContent = textoMensaje;
-  
-  if (tipoEstado !== '') {
-    setTimeout(() => {
-      nodoZonaMensajesEstado.className = '';
-      nodoZonaMensajesEstado.textContent = '';
-    }, 2000);
+  // --- Mostrar mensajes de estado ---
+  function mostrarMensajeDeEstado(tipo, texto) {
+    nodoZonaMensajesEstado.className = tipo;
+    nodoZonaMensajesEstado.textContent = texto;
+    if (tipo) {
+      setTimeout(() => {
+        nodoZonaMensajesEstado.className = '';
+        nodoZonaMensajesEstado.textContent = '';
+      }, 2000);
+    }
   }
-}
 
-// bloque indicador de carga bloqueo de boton
-function activarEstadoCargando() {
-  if (nodoBotonAgregarUsuario) nodoBotonAgregarUsuario.disabled = true;
-  if (nodoIndicadorCargando) nodoIndicadorCargando.hidden = false;
-}
-
-function desactivarEstadoCargando() {
-  if (nodoBotonAgregarUsuario) nodoBotonAgregarUsuario.disabled = false;
-  if (nodoIndicadorCargando) nodoIndicadorCargando.hidden = true;
-}
-
-// bloque sanitizacion de texto
-function convertirATextoSeguro(entradaPosiblementePeligrosa) {
-  return String(entradaPosiblementePeligrosa)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-// bloque renderizado del listado de usuarios
-function renderizarTablaDeUsuarios(arrayUsuarios) {
-  nodoCuerpoTablaUsuarios.innerHTML = '';
-  
-// muestro u oculto la fila de estado vacio segun haya datos o no
-  if (Array.isArray(arrayUsuarios) && arrayUsuarios.length > 0) {
-    if (nodoFilaEstadoVacio) nodoFilaEstadoVacio.hidden = true;
-  } else {
-    if (nodoFilaEstadoVacio) nodoFilaEstadoVacio.hidden = false;
-    return; // no hay filas que pintar
+  // --- Sanitizar texto ---
+  function convertirATextoSeguro(txt) {
+    return String(txt)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
   }
-  
-  arrayUsuarios.forEach((usuario, posicionEnLista) => {
-    const nodoFila = document.createElement('tr');
-    nodoFila.innerHTML = `
-      <td>${posicionEnLista + 1}</td>
-      <td>${convertirATextoSeguro(usuario?.nombre ?? '')}</td>
-      <td>${convertirATextoSeguro(usuario?.email ?? '')}</td>
-      <td>
-        <button data-posicion="${posicionEnLista}">
-          Eliminar
-        </button>
-      </td>
-    `;
-    nodoCuerpoTablaUsuarios.appendChild(nodoFila);
+
+  // --- Renderizar tabla ---
+  function renderizarTablaDeUsuarios(arrayUsuarios) {
+    nodoCuerpoTablaUsuarios.innerHTML = '';
+
+    if (!Array.isArray(arrayUsuarios) || arrayUsuarios.length === 0) {
+      nodoCuerpoTablaUsuarios.innerHTML = `
+        <tr><td colspan="3" class="text-center py-3 text-gray-500">No hay usuarios registrados</td></tr>
+      `;
+      return;
+    }
+
+    listaUsuarios = arrayUsuarios;
+
+    arrayUsuarios.forEach((usuario, i) => {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td class="py-2 px-4 border-b border-gray-300 dark:border-gray-700">${convertirATextoSeguro(usuario.nombre)}</td>
+        <td class="py-2 px-4 border-b border-gray-300 dark:border-gray-700">${convertirATextoSeguro(usuario.email)}</td>
+        <td class="py-2 px-4 border-b border-gray-300 dark:border-gray-700 flex gap-2">
+          <button data-posicion="${i}" class="editar px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-500">Editar</button>
+          <button data-posicion="${i}" class="eliminar px-3 py-1 bg-red-600 text-white rounded hover:bg-red-500">Eliminar</button>
+        </td>
+      `;
+      nodoCuerpoTablaUsuarios.appendChild(fila);
+    });
+  }
+
+  // --- Obtener y mostrar lista ---
+  async function obtenerYMostrarListadoDeUsuarios() {
+    try {
+      const respuestaHttp = await fetch(`${URL_API_SERVIDOR}?action=list`);
+      const cuerpoJson = await respuestaHttp.json();
+
+      if (respuestaHttp.ok) {
+        renderizarTablaDeUsuarios(cuerpoJson);
+      } else {
+        throw new Error(cuerpoJson.error || 'No fue posible obtener el listado.');
+      }
+    } catch (error) {
+      mostrarMensajeDeEstado('error', error.message);
+      console.error('Error list:', error);
+    }
+  }
+
+  // --- Crear usuario ---
+  formularioAltaUsuario.addEventListener('submit', async e => {
+    e.preventDefault();
+    const form = new FormData(formularioAltaUsuario);
+    const nombre = form.get('nombre').trim();
+    const email = form.get('email').trim();
+
+    if (!nombre || !email) {
+      mostrarMensajeDeEstado('error', 'Nombre y Email son obligatorios.');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${URL_API_SERVIDOR}?action=create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, email })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        mostrarMensajeDeEstado('error', data.error || 'No se pudo crear el usuario.');
+        return;
+      }
+
+      renderizarTablaDeUsuarios(data);
+      formularioAltaUsuario.reset();
+      mostrarMensajeDeEstado('ok', 'Usuario agregado correctamente.');
+    } catch (e) {
+      mostrarMensajeDeEstado('error', e.message);
+    }
   });
-}
 
-// bloque carga inicial y refresco del listado get list
-async function obtenerYMostrarListadoDeUsuarios() {
-  try {
-    const respuestaHttp = await fetch(`${URL_API_SERVIDOR}?action=list`);
-    const cuerpoJson = await respuestaHttp.json();
-    
-    if (!cuerpoJson.ok) {
-      throw new Error(cuerpoJson.error || 'No fue posible obtener el listado.');
-    }
-    
-    renderizarTablaDeUsuarios(cuerpoJson.data);
-    
-  } catch (error) {
-    mostrarMensajeDeEstado('error', error.message);
-  }
-}
+  // --- Delegación de eventos para Editar y Eliminar ---
+  nodoCuerpoTablaUsuarios.addEventListener('click', async e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const index = parseInt(btn.dataset.posicion, 10);
+    if (isNaN(index)) return;
 
-// bloque alta de usuario post create sin recargar la pagina
-formularioAltaUsuario?.addEventListener('submit', async (evento) => {
-  evento.preventDefault();
-  
-  const datosFormulario = new FormData(formularioAltaUsuario);
-  const datosUsuarioNuevo = {
-    nombre: String(datosFormulario.get('nombre') || '').trim(),
-    email: String(datosFormulario.get('email') || '').trim(),
-  };
-  
-// validacion html5 rapida por si el navegador no la lanza
-  if (!datosUsuarioNuevo.nombre || !datosUsuarioNuevo.email) {
-    mostrarMensajeDeEstado('error', 'Los campos Nombre y Email son obligatorios.');
-    return;
-  }
-  
-  try {
-    activarEstadoCargando();
-    
-    const respuestaHttp = await fetch(`${URL_API_SERVIDOR}?action=create`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datosUsuarioNuevo),
-    });
-    
-    const cuerpoJson = await respuestaHttp.json();
-    
-    if (!cuerpoJson.ok) {
-      throw new Error(cuerpoJson.error || 'No fue posible crear el usuario.');
+    // --- Eliminar ---
+    if (btn.classList.contains('eliminar')) {
+      if (!confirm('¿Seguro que deseas eliminar este usuario?')) return;
+      try {
+        const res = await fetch(`${URL_API_SERVIDOR}?action=delete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ index })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          mostrarMensajeDeEstado('error', data.error || 'Error al eliminar.');
+          return;
+        }
+        renderizarTablaDeUsuarios(data);
+        mostrarMensajeDeEstado('ok', 'Usuario eliminado correctamente.');
+      } catch (e) {
+        mostrarMensajeDeEstado('error', e.message);
+      }
     }
-    
-    renderizarTablaDeUsuarios(cuerpoJson.data);
-    formularioAltaUsuario.reset();
-    mostrarMensajeDeEstado('ok', 'Usuario agregado correctamente.');
-    
-  } catch (error) {
-    mostrarMensajeDeEstado('error', error.message);
-  } finally {
-    desactivarEstadoCargando();
+
+    // --- Editar ---
+    if (btn.classList.contains('editar')) {
+      abrirModalEdicion(index);
+    }
+  });
+
+  // --- Abrir modal edición ---
+  function abrirModalEdicion(index) {
+    const usuario = listaUsuarios[index];
+    if (!usuario) return;
+    editIndex.value = index;
+    editNombre.value = usuario.nombre;
+    editEmail.value = usuario.email;
+    modalEditar.classList.remove('hidden');
   }
+
+  // --- Guardar cambios (editar) ---
+  formEditarUsuario.addEventListener('submit', async e => {
+    e.preventDefault();
+    const index = editIndex.value;
+    const nombre = editNombre.value.trim();
+    const email = editEmail.value.trim();
+
+    try {
+      const res = await fetch(`${URL_API_SERVIDOR}?action=update`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ index, nombre, email })
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        mostrarMensajeDeEstado('error', data.error || 'Error al actualizar.');
+        return;
+      }
+
+      renderizarTablaDeUsuarios(data);
+      modalEditar.classList.add('hidden');
+      mostrarMensajeDeEstado('ok', 'Usuario actualizado correctamente.');
+    } catch (e) {
+      mostrarMensajeDeEstado('error', e.message);
+    }
+  });
+
+  obtenerYMostrarListadoDeUsuarios();
 });
-
-// bloque eliminacion de usuario post delete mediante delegacion
-nodoCuerpoTablaUsuarios?.addEventListener('click', async (evento) => {
-  const nodoBotonEliminar = evento.target.closest('button[data-posicion]');
-  if (!nodoBotonEliminar) return;
-  
-  const posicionUsuarioAEliminar = parseInt(nodoBotonEliminar.dataset.posicion, 10);
-  if (!Number.isInteger(posicionUsuarioAEliminar)) return;
-  
-  if (!window.confirm('¿Deseas eliminar este usuario?')) return;
-  
-  try {
-    const respuestaHttp = await fetch(`${URL_API_SERVIDOR}?action=delete`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ index: posicionUsuarioAEliminar }),
-    });
-    
-    const cuerpoJson = await respuestaHttp.json();
-    
-    if (!cuerpoJson.ok) {
-      throw new Error(cuerpoJson.error || 'No fue posible eliminar el usuario.');
-    }
-    
-    renderizarTablaDeUsuarios(cuerpoJson.data);
-    mostrarMensajeDeEstado('ok', 'Usuario eliminado correctamente.');
-    
-  } catch (error) {
-    mostrarMensajeDeEstado('error', error.message);
-  }
-});
-
-// bloque inicializacion de la pantalla
-obtenerYMostrarListadoDeUsuarios();

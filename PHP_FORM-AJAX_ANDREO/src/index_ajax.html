@@ -43,7 +43,7 @@
         class="flex-1 p-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-gray-400 outline-none transition" />
       <input type="email" name="email" placeholder="Email" required
         class="flex-1 p-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-gray-400 outline-none transition" />
-      <button type="submit"
+      <button id="boton-agregar-usuario" type="submit"
         class="px-4 py-2 bg-gray-800 dark:bg-gray-100 text-white dark:text-black rounded-lg hover:bg-gray-700 dark:hover:bg-gray-200 transition font-medium">
         Añadir usuario
       </button>
@@ -51,6 +51,8 @@
   </form>
 
   <div class="w-full max-w-3xl overflow-x-auto bg-white dark:bg-gray-850 rounded-xl shadow-sm">
+    <div id="msg" class="text-center text-sm font-medium my-3"></div>
+
     <table class="w-full text-left border-collapse">
       <thead class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg">
         <tr>
@@ -64,21 +66,51 @@
     </table>
   </div>
 
-  <script src="assets/js/main.js"></script>
+  <!-- Modal de edición -->
+  <div id="modalEditar" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white dark:bg-gray-850 p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-xl font-semibold mb-4">Editar usuario</h2>
+      <form id="formEditarUsuario" class="space-y-4">
+        <input type="hidden" id="editIndex" />
+        <div>
+          <label class="block text-sm font-medium mb-1">Nombre</label>
+          <input id="editNombre" type="text" required
+            class="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-gray-400 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input id="editEmail" type="email" required
+            class="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-gray-400 outline-none" />
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+          <button type="button" id="cancelarEdicion"
+            class="px-3 py-2 bg-gray-300 dark:bg-gray-700 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600">Cancelar</button>
+          <button type="submit" class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/main.js"></script>
 
   <script>
+    // Dark mode toggle
     const toggle = document.getElementById('themeToggle');
     const html = document.documentElement;
 
-    if (localStorage.theme === 'dark') {
-      html.classList.add('dark');
-    } else if (localStorage.theme === 'light') {
-      html.classList.remove('dark');
-    }
+    if (localStorage.theme === 'dark') html.classList.add('dark');
+    else if (localStorage.theme === 'light') html.classList.remove('dark');
 
     toggle.addEventListener('click', () => {
       html.classList.toggle('dark');
       localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    // Cerrar modal manualmente (extra por seguridad)
+    const modalEditar = document.getElementById('modalEditar');
+    const cancelarEdicion = document.getElementById('cancelarEdicion');
+    cancelarEdicion.addEventListener('click', () => {
+      modalEditar.classList.add('hidden');
     });
   </script>
 </body>
