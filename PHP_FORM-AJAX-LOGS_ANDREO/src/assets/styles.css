@@ -1,0 +1,253 @@
+body {
+  background: #e0e0e0;
+  font-family: "Numans", sans-serif;
+  color: rgb(100, 100, 100);
+  /* overflow-y: hidden; */
+}
+
+h1 {
+  color: rgb(112, 112, 112);
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-size: 36px;
+}
+
+form {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #888888;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.formpartesUsers{
+    position: absolute;
+    bottom: 300px;
+    left: 152px;
+    width: 45%;
+    height: 40px;
+}
+.verOtrosUsers {
+  display: flex;
+  flex-direction: row;
+  gap:50px;
+}
+.formpartes,
+.formpartesHora,
+.formpartesRespuestas{
+  background: #e0e0e0;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow:
+    9px 9px 16px #bebebe,
+    -9px -9px 16px #ffffff;
+  width: 40%;
+  height: 40%;
+  margin: 40px;
+}
+.signup-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 60%;
+}
+input,
+textarea,
+select,
+button {
+  width: 50%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #e0e0e0;
+  box-shadow:
+    inset 3px 3px 6px #bebebe,
+    inset -3px -3px 6px #ffffff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s ease;
+}
+.bodylog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #e0e0e0;
+      overflow: hidden;
+
+}
+.formlogCerrar{
+  color: #c62828;
+}
+.formlog , .formlogCerrar{
+    width: 20%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #e0e0e0;
+  box-shadow:
+    inset 3px 3px 6px #bebebe,
+    inset -3px -3px 6px #ffffff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s ease;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow:
+    inset 1px 1px 2px #bebebe,
+    inset -1px -1px 2px #ffffff,
+    0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  cursor: pointer;
+  background: #e0e0e0;
+  box-shadow:
+    5px 5px 10px #bebebe,
+    -5px -5px 10px #ffffff;
+  transition: all 0.2s ease;
+}
+.formlogbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+button:hover {
+  box-shadow:
+    inset 3px 3px 6px #bebebe,
+    inset -3px -3px 6px #ffffff;
+}
+.scroll-container {
+  width: 100vw;
+  position: relative;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top:-200px;
+    overflow: hidden;
+
+}
+
+.titulo-scroll {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 70px; 
+  color: rgb(112, 112, 112);
+  animation: scroll-text 12s linear infinite;
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/*** wsto es lo del relo etc ***/
+.formpartesHora {
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+  width: 300px;
+  height: 100px;
+}
+
+.reloj {
+  font-size: 4em;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  gap: 10px;
+}
+
+.caja-segundos {
+  display: inline-block;
+}
+
+.caja-segundos .segundos,
+.caja-segundos .ampm {
+  font-size: 2rem;
+  display: block;
+}
+
+.formpartesRespuestas {
+  position: absolute;
+  bottom: 50px;
+  left: 460px;
+  width: 300px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px
+}
+
+/*cuando todo ok*/
+
+
+.check-verde {
+  color: #4CAF50;
+  margin-left: 10px;
+}
+
+.mensaje-exito {
+  position: absolute;
+  bottom: 50px;
+  left: 960px;
+  width: 300px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  background: #e0e0e0;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow:
+    9px 9px 16px #bebebe,
+    -9px -9px 16px #ffffff;
+  width: 40%;
+  height: 40%;
+  margin: 40px;
+  font-size: 46px;
+  color: #4CAF50;
+  
+}
+.mensaje-exito a {
+  color: #4CAF50;
+  font-size: 30px;
+text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.mensaje-error {
+  background-color: #ffebee;
+  border: 1px solid #f44336;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 15px 0;
+  text-align: center;
+  color: #c62828;
+}

@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nombre": "Admin",
+        "email": "admin@example21.com",
+        "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
+        "rol": "admin"
+    },
+    {
+        "id": 2,
+        "nombre": "admin3maria",
+        "email": "admin1@gmailco",
+        "empresa": "empresaadmin",
+        "rol": "admin",
+        "password": "$2y$10$T49IqIav6U4evTKMRr8DWuqNUFQIa8oZ.YNawtMii0R5xxxFiKEye"
+    },
+    {
+        "id": 3,
+        "nombre": "Blanca",
+        "email": "hola@monlau.com",
+        "password": "$2y$10$e7K6G8TPp2qetfJRDZXgjejs.yRuhkk7nMNfMaDy9YIPLApwKqi6i",
+        "rol": "usuario"
+    },
+    {
+        "id": 4,
+        "nombre": "usuario1",
+        "email": "us1@gmail",
+        "empresa": "empresaadmin",
+        "rol": "user",
+        "password": "$2y$10$RKO8pBmS78MdHZP3U.bxDeLHwM\/ihyG4GA\/1MuxH.NB6qLhAZaWkK"
+    }
+]
